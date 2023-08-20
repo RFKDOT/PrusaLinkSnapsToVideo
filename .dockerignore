@@ -1,0 +1,5 @@
+.git/
+.idea/
+.vscode/
+instance/
+__pycache__/
