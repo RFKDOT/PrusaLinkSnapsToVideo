@@ -17,10 +17,10 @@ def initialize():
     try:
         info_response = requests.get(f"http://{IP_ADDRESS}/api/v1/info", headers=HEADERS)
         info_response.raise_for_status()
-        # print(info_response.json())
+        # print(info_response.json(), flush=True)
         return True
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error: {e}", flush=True)
         return False
 
 def format_time(seconds):
@@ -37,7 +37,7 @@ def download_snapshot():
     job_response.raise_for_status()
 
     if job_response.status_code != 200:
-        print(f"Parece que en este momento no se está imprimiendo nada")
+        print(f"Parece que en este momento no se está imprimiendo nada", flush=True)
         return
 
     # print(job_response.json())
@@ -64,10 +64,10 @@ def download_snapshot():
         with open(os.path.join(os.getcwd(), file_name), "wb") as file:
             file.write(snap_response.content)
 
-        print(f"Snapshot saved as {file_name}")
+        print(f"Captura obtenida y almacenada en {file_name}", flush=True)
 
 if initialize() is False:
-    print(f"Connection error")
+    print(f"Parece que no hay conexión con la impresora.", flush=True)
     exit()
 
 while True:
@@ -77,5 +77,5 @@ while True:
         time.sleep(SLEEP_TIME)
 
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error: {e}", flush=True)
         time.sleep(SLEEP_TIME)

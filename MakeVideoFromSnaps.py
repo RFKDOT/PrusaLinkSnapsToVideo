@@ -20,7 +20,7 @@ def list_projects_in_png():
 
 def select_project(projects):
     # Mostrar al usuario una lista de proyectos
-    print("\nList of Projects:")
+    print("\nList of Projects:", flush=True)
     for idx, project in enumerate(projects.keys(), 1):
         print(f"{idx}. {project}")
 
@@ -32,9 +32,9 @@ def select_project(projects):
                 project_name = list(projects.keys())[selection - 1]
                 return project_name, projects[project_name]
             else:
-                print("Invalid selection. Please choose a valid number.")
+                print("Invalid selection. Please choose a valid number.", flush=True)
         except ValueError:
-            print("Please enter a valid number.")
+            print("Please enter a valid number.", flush=True)
 
 def create_video_from_images(images, duration_per_image, output_path):
     # Get the frame dimensions from the first image
@@ -69,13 +69,13 @@ def main_script():
         total_duration = float(input("Enter the total video duration in seconds (e.g. 30): "))
         duration_per_image = total_duration / len(sorted_images)
 
-    print(f"Duration per image {duration_per_image}\n")
-    print(f"Total duration {total_duration}\n")
+    print(f"Duration per image {duration_per_image}\n", flush=True)
+    print(f"Total duration {total_duration}\n", flush=True)
 
     # Create video
     output_path = f"media/mp4/{selected_project_name}_{time.time()}.mp4"
     create_video_from_images(sorted_images, duration_per_image, output_path)
-    print(f"\nVideo saved as {output_path}")
+    print(f"\nVideo saved as {output_path}", flush=True)
 
     # Ask user if they want to delete the images used for the video
     # delete_choice = input("\nDo you want to delete the images used to create the video? (yes/no): ")
