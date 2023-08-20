@@ -6,8 +6,8 @@ RUN pip3 install opencv-python requests python-dotenv
 
 COPY . /app
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+RUN mkdir -p /app/media/png
 
-# CMD ["python3", "PrusaLinkGetSnaps.py"]
+RUN mkdir -p /app/media/mp4
 
-# CMD ["sleep", "infinity"]
+ENTRYPOINT ["python3", "PrusaLinkGetSnaps.py"]
