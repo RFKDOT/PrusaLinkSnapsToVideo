@@ -33,12 +33,12 @@ def download_snapshot():
         job_response = requests.get(f"http://{IP_ADDRESS}/api/v1/job", headers=HEADERS)
         job_response.raise_for_status()
     except Exception as e:
-         print(f"{this_time()} Parece que en este momento la impresora está apagada \n {e}", flush=True)
-         sleep_time = 300
+         print(f"{this_time()} Parece que en este momento la impresora está apagada", flush=True)
+         sleep_time = 600
          return
 
     if job_response.status_code != 200:
-        print(f"{this_time()} Parece que en este momento no se está imprimiendo nada \n {job_response.status_code}", flush=True)
+        print(f"{this_time()} Parece que en este momento no se está imprimiendo nada", flush=True)
         sleep_time = 120
         return
 
@@ -51,6 +51,10 @@ def download_snapshot():
 
     if ".gco" in job_name:
         job_name = job_name.replace(".gco", "")
+
+    job_name = job_name.replace("   ", "_")
+    job_name = job_name.replace("  ", "_")
+    job_name = job_name.replace(" ", "_")
 
     snap_response = requests.get(f"http://{IP_ADDRESS}/api/v1/cameras/snap", headers=HEADERS)
     snap_response.raise_for_status()
