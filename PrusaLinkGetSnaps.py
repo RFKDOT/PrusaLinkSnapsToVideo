@@ -21,7 +21,6 @@ def this_time():
     return now.strftime("%d/%m/%Y %H:%M:%S")
 
 def format_time(seconds):
-    """Format time in seconds to HH:MM:SS"""
     hours, remainder = divmod(seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
     return f"{hours:02}:{minutes:02}:{seconds:02}"
@@ -33,12 +32,12 @@ def download_snapshot():
         job_response = requests.get(f"http://{IP_ADDRESS}/api/v1/job", headers=HEADERS)
         job_response.raise_for_status()
     except Exception as e:
-         print(f"{this_time()} Parece que en este momento la impresora está apagada", flush=True)
+         print(f"{this_time()} Printer is off !?!?", flush=True)
          sleep_time = 600
          return
 
     if job_response.status_code != 200:
-        print(f"{this_time()} Parece que en este momento no se está imprimiendo nada", flush=True)
+        print(f"{this_time()} Printer is stand-by !?!?", flush=True)
         sleep_time = 120
         return
 
@@ -60,7 +59,7 @@ def download_snapshot():
     snap_response.raise_for_status()
 
     if previous_snapshot == snap_response.content:
-        if DEBUG==True: print(f"{this_time()} Misma captura, esperamos {sleep_time} segundos", flush=True)
+        if DEBUG==True: print(f"{this_time()} Same image, waiting {sleep_time} seconds", flush=True)
         return
 
     else:
@@ -73,7 +72,7 @@ def download_snapshot():
         with open(os.path.join(os.getcwd(), file_name), "wb") as file:
             file.write(snap_response.content)
 
-        print(f"{this_time()} Captura obtenida y almacenada en {file_name}", flush=True)
+        print(f"{this_time()} Image saved => {file_name}", flush=True)
         sleep_time = SLEEP_TIME
 
 while True:

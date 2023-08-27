@@ -2,30 +2,47 @@
 
 [![Build and Publish Docker Image](https://github.com/RFKDOT/PrusaLinkSnapsToVideo/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/RFKDOT/PrusaLinkSnapsToVideo/actions/workflows/docker-publish.yml)
 
-Descarga las capturas (SnapShots) dee las fotos realizadas por PrusaLink mediante su API, en formato PNG.  
-Y a partir de esas capturas, genera un video MP4.
+Download the SnapShots of the photos taken by PrusaLink through its API, in PNG format.  
+And from these snapshots, it generates an MP4 video.  
 
-## Instalación manual
+## Manual Installation
 
-- Clonar proyecto
+- Clone project
 
 ```
 git clone git@github.com:RFKDOT/PrusaLinkSnapsToVideo.git
 ```
 
-- Instalar dependencias
+- Install dependencies
 
 ```
 pip3 install opencv-python requests python-dotenv
 ```
 
-## Configuración
+### Configuration
 
-- Copia el fichero .env.example a .env
-- Editalo e incluye la IP local de tu RaspBerry donde tengas instalado PrusaLink, por defecto 'prusalink.local'
-- Tambien incluye tu Clave API, la puedes encontrar o generar en la sección de Ajustes de tu PrusaLink
+- Copy the file .env.example to .env
+- Edit it and include the local IP of your RaspBerry where you have PrusaLink installed, by default 'prusalink.local'.
+- Also include your API Key, you can find it or generate it in the Settings section of your PrusaLink.
 
-## Instalación Docker Compose
+### Use PrusaLinkGetSnaps.py
+
+- Downloads the generated snapshots according to the camera configuration to PrusaLink.
+- Keeps running permanently
+
+```
+python3 PrusaLinkGetSnaps.py
+```
+
+### Use MakeVideoFromSnaps.py
+
+- Generate an MP4 video by assembling the SnapsShots of a given project, in order.
+
+```
+python3 MakeVideoFromSnaps.py
+```
+
+## Docker Compose installation
 
 ```
 version: '3.9'
@@ -43,31 +60,4 @@ services:
       SLEEP_TIME: 10
     working_dir: /app
     restart: always
-```
-
-## Ejecución y uso
-
-### PrusaLinkGetSnaps.py
-
-- Descarga los snapshots generados según la configuración de la cámara en PrusaLink
-- Se mantiene en ejecución permanente
-
-```
-python3 PrusaLinkGetSnaps.py
-```
-
-### MakeVideoFromSnaps.py
-
-- Genera un video MP4 montando en él los SnapsShots de un determinado proyecto, en orden.
-
-```
-python3 MakeVideoFromSnaps.py
-```
-
-# Devel
-
-```
-docker system prune -a
-docker build -t plstv .
-docker run -it plstv
 ```
