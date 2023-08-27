@@ -1,6 +1,8 @@
 # PrusaLinkSnapShotvideMaker
 
-Captura y descarga forma local las fotos realizadas por PrusaLink mediante su API, en formato PNG.  
+[![Build and Publish Docker Image](https://github.com/RFKDOT/PrusaLinkSnapsToVideo/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/RFKDOT/PrusaLinkSnapsToVideo/actions/workflows/docker-publish.yml)
+
+Descarga las capturas (SnapShots) dee las fotos realizadas por PrusaLink mediante su API, en formato PNG.  
 Y a partir de esas capturas, genera un video MP4.
 
 ## Instalación manual
